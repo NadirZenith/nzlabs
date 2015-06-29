@@ -57,6 +57,7 @@ framework:
     session:
         save_path:           %kernel.root_dir%/cache/sessions
         cookie_domain: %cookie_domain%
+        name: %cookie_name%
 
     fragments:               ~
     trusted_proxies:         ~
