@@ -4,6 +4,7 @@ parameters:
     database_name:     sonata_sandbox
     database_user:     sonata
     database_password: sonata
+    cookie_domain: .nzlabs.app.dev
 
     mailer_transport:   smtp
     mailer_host:        localhost
