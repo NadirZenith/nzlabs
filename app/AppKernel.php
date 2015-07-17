@@ -92,9 +92,6 @@ class AppKernel extends Kernel
             new Application\Sonata\SeoBundle\ApplicationSonataSeoBundle(),
             new Sonata\DatagridBundle\SonataDatagridBundle(),
 
-            // Search Integration
-            //new FOS\ElasticaBundle\FOSElasticaBundle(),
-
             // CMF Integration
             new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
 

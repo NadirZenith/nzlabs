@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="sonata_news_search" pattern="/search">
+    <!--<route id="sonata_news_search" pattern="/search/{query_string}/">-->
+        <default key="_controller">ApplicationSonataNewsBundle:Post:search</default>
+        <!--<default key="query_string"></default>-->
+        <default key="_format">html</default>
+        <requirement key="_format">html|rss</requirement>
+    </route>
+    
+    <route id="sonata_news_search_pretty" pattern="/search/{query_string}.{_format}">
+        <default key="_controller">ApplicationSonataNewsBundle:Post:searchPretty</default>
+        <default key="query_string"></default>
+        <default key="_format">html</default>
+        <requirement key="_format">html|rss</requirement>
+    </route>
+
+</routes>

@@ -37,7 +37,11 @@ sonata_media_media:
     resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
     prefix: /media
 
-blog:
+sonata_blog_search:
+    resource: '@ApplicationSonataNewsBundle/Resources/config/routing/news_search.xml'
+    prefix: /blog
+    
+sonata_blog:
     resource: '@SonataNewsBundle/Resources/config/routing/news.xml'
     prefix: /blog
 

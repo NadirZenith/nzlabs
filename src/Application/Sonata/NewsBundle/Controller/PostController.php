@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata package.
  *
@@ -11,23 +12,108 @@
 namespace Application\Sonata\NewsBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sonata\NewsBundle\Model\CommentInterface;
 use Sonata\NewsBundle\Model\PostInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class PostController extends Controller
 {
+
     /**
      * @return RedirectResponse
      */
     public function homeAction()
     {
         return $this->redirect($this->generateUrl('sonata_news_archive'));
+    }
+
+    public function searchAction(Request $request, array $criteria = array(), array $parameters = array())
+    {
+
+        d(func_get_args());
+        return $this->redirectToRoute('sonata_news_search_pretty', array(
+                'query_string' => $request->get('query_string')
+                ), 302);
+    }
+
+    /**
+     * @param array $criteria
+     * @param array $parameters
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    /* public function searchAction(Request $request, array $criteria = array(), array $parameters = array()) */
+    public function searchPrettyAction(Request $request, array $criteria = array(), array $parameters = array())
+    {
+        $page = $this->getRequest()->get('page', 1);
+        
+        $pager = $this->getPostManager()->getPager(
+            $criteria, $page
+        );
+
+        $query2 = $pager->getQuery();
+        
+        $query_string = str_replace(['_', '-'], ' ', $request->get('query_string'));
+        $search_array = explode(' ', $query_string);
+        
+        $repository = $this->getPostManager()->getObjectManager()->getRepository('ApplicationSonataNewsBundle:Post');
+
+        $first = ($page ==1)? 0 : $page * 2;
+        $qb = $repository->createQueryBuilder('p')
+            ->setFirstResult($first)
+            ->setMaxResults(2);
+        ;
+
+        /*
+          $query = $qb->createQueryBuilder('p')
+          ->where('p.rawContent LIKE :query_string')
+          ->orWhere('p.title LIKE :query_string')
+          ->where('p.title LIKE :query_string')
+          ->setParameter('query_string', '%' . $query_string . '%')
+          ->getQuery()
+          ;
+         */
+
+        $search_fields = ['rawContent', 'title'];
+        foreach ($search_array as $key => $value) {
+            foreach ($search_fields as $field) {
+                $qb->AndWhere('p.' . $field . ' LIKE :query_string_' . $key)
+                    ->orWhere('p.' . $field . ' LIKE :query_string_' . $key)
+                    ->setParameter('query_string_' . $key, '%' . $value . '%')
+                ;
+            }
+        }
+        $query = $qb->getQuery();
+        
+        /*
+          $query = $this->getPostManager()->getObjectManager()
+          ->createQuery("SELECT p FROM ApplicationSonataNewsBundle:Post p WHERE p.rawContent LIKE :query_string OR p.title LIKE :query_string")
+          ->setParameter('query_string', '%' . $query_string . '%')
+          ;
+         */
+
+        $pager->setQuery($query);
+
+        $parameters = array_merge(array(
+            'pager' => $pager,
+            'blog' => $this->get('sonata.news.blog'),
+            'tag' => false,
+            'collection' => false,
+            'route' => $this->getRequest()->get('_route'),
+            'route_parameters' => $this->getRequest()->get('_route_params')
+            ), $parameters);
+
+        $response = $this->render(sprintf('SonataNewsBundle:Post:archive.%s.twig', $this->getRequest()->getRequestFormat()), $parameters);
+
+        if ('rss' === $this->getRequest()->getRequestFormat()) {
+            $response->headers->set('Content-Type', 'application/rss+xml');
+        }
+
+        return $response;
     }
 
     /**
@@ -38,28 +124,25 @@ class PostController extends Controller
      */
     public function renderArchive(array $criteria = array(), array $parameters = array())
     {
-        d('hehe');
         $pager = $this->getPostManager()->getPager(
-            $criteria,
-            $this->getRequest()->get('page', 1)
+            $criteria, $this->getRequest()->get('page', 1)
         );
 
         $parameters = array_merge(array(
-            'pager'            => $pager,
-            'blog'             => $this->get('sonata.news.blog'),
-            'tag'              => false,
-            'collection'       => false,
-            'route'            => $this->getRequest()->get('_route'),
+            'pager' => $pager,
+            'blog' => $this->get('sonata.news.blog'),
+            'tag' => false,
+            'collection' => false,
+            'route' => $this->getRequest()->get('_route'),
             'route_parameters' => $this->getRequest()->get('_route_params')
-        ), $parameters);
-
+            ), $parameters);
+d($parameters);
         $response = $this->render(sprintf('SonataNewsBundle:Post:archive.%s.twig', $this->getRequest()->getRequestFormat()), $parameters);
 
         if ('rss' === $this->getRequest()->getRequestFormat()) {
             $response->headers->set('Content-Type', 'application/rss+xml');
         }
-
-        /*return $response;*/
+        return $response;
     }
 
     /**
@@ -129,7 +212,7 @@ class PostController extends Controller
     public function archiveMonthlyAction($year, $month)
     {
         return $this->renderArchive(array(
-            'date' => $this->getPostManager()->getPublicationDateQueryParts(sprintf('%d-%d-%d', $year, $month, 1), 'month')
+                'date' => $this->getPostManager()->getPublicationDateQueryParts(sprintf('%d-%d-%d', $year, $month, 1), 'month')
         ));
     }
 
@@ -141,7 +224,7 @@ class PostController extends Controller
     public function archiveYearlyAction($year)
     {
         return $this->renderArchive(array(
-            'date' => $this->getPostManager()->getPublicationDateQueryParts(sprintf('%d-%d-%d', $year, 1, 1), 'year')
+                'date' => $this->getPostManager()->getPublicationDateQueryParts(sprintf('%d-%d-%d', $year, 1, 1), 'year')
         ));
     }
 
@@ -167,16 +250,16 @@ class PostController extends Controller
                 ->addMeta('property', 'og:title', $post->getTitle())
                 ->addMeta('property', 'og:type', 'blog')
                 ->addMeta('property', 'og:url', $this->generateUrl('sonata_news_view', array(
-                    'permalink'  => $this->getBlog()->getPermalinkGenerator()->generate($post, true)
-                ), true))
+                        'permalink' => $this->getBlog()->getPermalinkGenerator()->generate($post, true)
+                        ), true))
                 ->addMeta('property', 'og:description', $post->getAbstract())
             ;
         }
 
         return $this->render('SonataNewsBundle:Post:view.html.twig', array(
-            'post' => $post,
-            'form' => false,
-            'blog' => $this->get('sonata.news.blog')
+                'post' => $post,
+                'form' => false,
+                'blog' => $this->get('sonata.news.blog')
         ));
     }
 
@@ -201,12 +284,12 @@ class PostController extends Controller
     {
         $pager = $this->getCommentManager()
             ->getPager(array(
-                'postId' => $postId,
-                'status'  => CommentInterface::STATUS_VALID
+            'postId' => $postId,
+            'status' => CommentInterface::STATUS_VALID
             ), 1, 500); //no limit
 
         return $this->render('SonataNewsBundle:Post:comments.html.twig', array(
-            'pager'  => $pager,
+                'pager' => $pager,
         ));
     }
 
@@ -227,8 +310,8 @@ class PostController extends Controller
         }
 
         return $this->render('SonataNewsBundle:Post:comment_form.html.twig', array(
-            'form'      => $form->createView(),
-            'post_id'   => $postId
+                'form' => $form->createView(),
+                'post_id' => $postId
         ));
     }
 
@@ -266,7 +349,7 @@ class PostController extends Controller
         if (!$post->isCommentable()) {
             // todo add notice
             return new RedirectResponse($this->generateUrl('sonata_news_view', array(
-                'permalink'  => $this->getBlog()->getPermalinkGenerator()->generate($post)
+                    'permalink' => $this->getBlog()->getPermalinkGenerator()->generate($post)
             )));
         }
 
@@ -281,13 +364,13 @@ class PostController extends Controller
 
             // todo : add notice
             return new RedirectResponse($this->generateUrl('sonata_news_view', array(
-                'permalink'  => $this->getBlog()->getPermalinkGenerator()->generate($post)
+                    'permalink' => $this->getBlog()->getPermalinkGenerator()->generate($post)
             )));
         }
 
         return $this->render('SonataNewsBundle:Post:view.html.twig', array(
-            'post' => $post,
-            'form' => $form
+                'post' => $post,
+                'form' => $form
         ));
     }
 
@@ -343,7 +426,7 @@ class PostController extends Controller
         $this->getCommentManager()->save($comment);
 
         return new RedirectResponse($this->generateUrl('sonata_news_view', array(
-            'permalink'  => $this->getBlog()->getPermalinkGenerator()->generate($comment->getPost())
+                'permalink' => $this->getBlog()->getPermalinkGenerator()->generate($comment->getPost())
         )));
     }
 }
