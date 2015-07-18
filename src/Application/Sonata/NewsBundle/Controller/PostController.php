@@ -34,7 +34,6 @@ class PostController extends Controller
     public function searchAction(Request $request, array $criteria = array(), array $parameters = array())
     {
 
-        d(func_get_args());
         return $this->redirectToRoute('sonata_news_search_pretty', array(
                 'query_string' => $request->get('query_string')
                 ), 302);
@@ -136,7 +135,7 @@ class PostController extends Controller
             'route' => $this->getRequest()->get('_route'),
             'route_parameters' => $this->getRequest()->get('_route_params')
             ), $parameters);
-d($parameters);
+
         $response = $this->render(sprintf('SonataNewsBundle:Post:archive.%s.twig', $this->getRequest()->getRequestFormat()), $parameters);
 
         if ('rss' === $this->getRequest()->getRequestFormat()) {
