@@ -45,7 +45,6 @@ class PostController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    /* public function searchAction(Request $request, array $criteria = array(), array $parameters = array()) */
     public function searchPrettyAction(Request $request, array $criteria = array(), array $parameters = array())
     {
         $page = $this->getRequest()->get('page', 1);

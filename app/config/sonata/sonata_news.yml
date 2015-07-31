@@ -27,7 +27,8 @@ sonata_news:
 
     admin:
         post:
-            class:       Sonata\NewsBundle\Admin\PostAdmin
+            class:       Application\Sonata\NewsBundle\Admin\PostAdmin
+            #class:       Sonata\NewsBundle\Admin\PostAdmin
             controller:  SonataAdminBundle:CRUD
             translation: SonataNewsBundle
         comment:
