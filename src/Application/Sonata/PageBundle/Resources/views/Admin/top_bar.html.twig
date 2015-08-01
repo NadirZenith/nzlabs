@@ -109,7 +109,6 @@
 
             var pluginName = "hideableBlock",
                     defaults = {
-                        propertyName: "value"
                     };
 
             function Plugin(el, options) {
@@ -162,10 +161,8 @@
 
         })(jQuery, window, document);
 
-        $(".hideable").hideableBlock({
-            propertyName: "a custom value"
-        });
-
+        /*$(".hideable").hideableBlock({});*/
+        {{dump('var')}}
     </script>
-{% endif %}
+    {% endif %}
 {% endblock %}

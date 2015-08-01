@@ -59,87 +59,8 @@ file that was distributed with this source code.
         <body class="sonata-bc">
 
         {% endblock %}
-        <div class="hideable">
             {{ include('ApplicationSonataPageBundle:Admin:top_bar.html.twig') }}
-        </div>
-        <style>
-            .hideable .switch{
-                position: fixed;
-                right: 0;
-                top: 0;
-                background-color: red;
-                color: #EEE;
-                z-index: 1000000;
-            }
-        </style>
-        <script>
-            // the semi-colon before function invocation is a safety net against concatenated
-// scripts and/or other plugins which may not be closed properly.
-            ;
-            (function ($, window, document, undefined) {
-
-                "use strict";
-
-                var pluginName = "hideableBlock",
-                        defaults = {
-                            propertyName: "value"
-                        };
-
-                function Plugin(el, options) {
-                    this.el = el;
-                    this.$el = $(el);
-                    /*this.$panel = $('<div class="panel"></div>');*/
-                    /*this.$el.children().wrapAll(this.$panel);*/
-                    /*this.$panel.hide();*/
-
-                    this.settings = $.extend({}, defaults, options);
-                    this._defaults = defaults;
-                    this._name = pluginName;
-                    this.init();
-                }
-
-                $.extend(Plugin.prototype, {
-                    init: function () {
-                        this.$panel = this.$el.children().wrapAll('<div class="panel"></div>');
-                        this.$sbtn = $('<button class="switch">switch</button>');
-
-                        this.$el.append(this.$sbtn);
-                        this.bindEvents();
-                    },
-                    bindEvents: function () {
-                        var self = this;
-                        this.$sbtn.on('click', function () {
-                            if (self.$panel.is(':visible')) {
-                                self.hidePanel();
-                            } else {
-                                self.showPanel();
-                            }
-                        });
-                    },
-                    showPanel: function () {
-                        this.$panel.show();
-                    },
-                    hidePanel: function () {
-                        this.$panel.hide();
-
-                    }
-                });
-
-                $.fn[ pluginName ] = function (options) {
-                    return this.each(function () {
-                        if (!$.data(this, "plugin_" + pluginName)) {
-                            $.data(this, "plugin_" + pluginName, new Plugin(this, options));
-                        }
-                    });
-                };
-
-            })(jQuery, window, document);
-
-            $(".hideable").hideableBlock({
-                propertyName: "a custom value"
-            });
-
-        </script>
+       
 
         {% block sonata_page_container %}
         {% endblock %}
