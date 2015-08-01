@@ -358,7 +358,7 @@ class PostController extends Controller
             $comment = $form->getData();
 
             $this->getCommentManager()->save($comment);
-            $this->get('sonata.news.mailer')->sendCommentNotification($comment);
+            /*$this->get('sonata.news.mailer')->sendCommentNotification($comment);*/
 
             // todo : add notice
             return new RedirectResponse($this->generateUrl('sonata_news_view', array(

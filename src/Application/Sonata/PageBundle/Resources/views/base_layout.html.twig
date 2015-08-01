@@ -37,10 +37,17 @@ file that was distributed with this source code.
 
             {% endblock %}
             <script>
-                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+                (function (i, s, o, g, r, a, m) {
+                    i['GoogleAnalyticsObject'] = r;
+                    i[r] = i[r] || function () {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
+                    a = s.createElement(o),
+                            m = s.getElementsByTagName(o)[0];
+                    a.async = 1;
+                    a.src = g;
+                    m.parentNode.insertBefore(a, m)
+                })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
                 ga('create', 'UA-64605141-1', 'auto');
                 ga('send', 'pageview');
@@ -48,12 +55,91 @@ file that was distributed with this source code.
         </head>
     {% endblock %}
 
-    {#{% block sonata_page_body_tag %}#}
+    {% block sonata_page_body_tag %}
         <body class="sonata-bc">
 
-        {#{% endblock %}#}
+        {% endblock %}
+        <div class="hideable">
+            {{ include('ApplicationSonataPageBundle:Admin:top_bar.html.twig') }}
+        </div>
+        <style>
+            .hideable .switch{
+                position: fixed;
+                right: 0;
+                top: 0;
+                background-color: red;
+                color: #EEE;
+                z-index: 1000000;
+            }
+        </style>
+        <script>
+            // the semi-colon before function invocation is a safety net against concatenated
+// scripts and/or other plugins which may not be closed properly.
+            ;
+            (function ($, window, document, undefined) {
 
-        {#{{ include('ApplicationSonataPageBundle:Admin:top_bar.html.twig') }}#}
+                "use strict";
+
+                var pluginName = "hideableBlock",
+                        defaults = {
+                            propertyName: "value"
+                        };
+
+                function Plugin(el, options) {
+                    this.el = el;
+                    this.$el = $(el);
+                    /*this.$panel = $('<div class="panel"></div>');*/
+                    /*this.$el.children().wrapAll(this.$panel);*/
+                    /*this.$panel.hide();*/
+
+                    this.settings = $.extend({}, defaults, options);
+                    this._defaults = defaults;
+                    this._name = pluginName;
+                    this.init();
+                }
+
+                $.extend(Plugin.prototype, {
+                    init: function () {
+                        this.$panel = this.$el.children().wrapAll('<div class="panel"></div>');
+                        this.$sbtn = $('<button class="switch">switch</button>');
+
+                        this.$el.append(this.$sbtn);
+                        this.bindEvents();
+                    },
+                    bindEvents: function () {
+                        var self = this;
+                        this.$sbtn.on('click', function () {
+                            if (self.$panel.is(':visible')) {
+                                self.hidePanel();
+                            } else {
+                                self.showPanel();
+                            }
+                        });
+                    },
+                    showPanel: function () {
+                        this.$panel.show();
+                    },
+                    hidePanel: function () {
+                        this.$panel.hide();
+
+                    }
+                });
+
+                $.fn[ pluginName ] = function (options) {
+                    return this.each(function () {
+                        if (!$.data(this, "plugin_" + pluginName)) {
+                            $.data(this, "plugin_" + pluginName, new Plugin(this, options));
+                        }
+                    });
+                };
+
+            })(jQuery, window, document);
+
+            $(".hideable").hideableBlock({
+                propertyName: "a custom value"
+            });
+
+        </script>
 
         {% block sonata_page_container %}
         {% endblock %}
