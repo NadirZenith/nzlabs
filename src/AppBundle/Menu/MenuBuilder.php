@@ -15,14 +15,21 @@ class MenuBuilder extends ContainerAware
 
         /* $menu->addChild('Hello', array('route' => 'app_hello', 'routeParameters' => array('name' => 'tino'))); */
         $menu->addChild('Blog', array('route' => 'sonata_news_archive'));
-        // ... add more children
 
-        $menu->addChild('Admin', array('route' => 'sonata_admin_dashboard'));
-/*
+        return $menu;
+    }
+
+    public function createProfileMenu(FactoryInterface $factory, array $options)
+    {
+        $menu = $factory->createItem('root');
+
+        /*$menu->addChild('Home', array('route' => 'homepage'));*/
         $securityContext = $this->container->get('security.context');
-        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            $menu->addChild('Admin', array('route' => 'sonata_admin_dashboard'));
+            
         }
- */
+
         return $menu;
     }
 }

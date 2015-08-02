@@ -13,6 +13,7 @@ sonata_block:
 
     menus:
         "AppBundle:MenuBuilder:createMainMenu": "Main Menu"
+        "AppBundle:MenuBuilder:createProfileMenu": "Profile Menu"
 
     blocks:
         sonata.admin.block.admin_list:

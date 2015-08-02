@@ -53,4 +53,11 @@ file that was distributed with this source code.
             {% endfor %}
         </div>
     </div>
+    <div class="span6 col-lg-6">
+        {% for block in blocks %}
+            {% if block.position == 'bottom' %}
+                {{ sonata_block_render({ 'type': block.type, 'settings': block.settings}) }}
+            {% endif %}
+        {% endfor %}
+    </div>
 {% endblock %}
