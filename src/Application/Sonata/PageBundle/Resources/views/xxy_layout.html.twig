@@ -1,3 +1,37 @@
+
+{#{% extends 'SonataPageBundle::layout.html.twig' %}#}
+{% extends 'ApplicationSonataPageBundle::xxx_layout.html.twig' %}
+
+
+{% block page_content %}
+
+    {% if page is defined %}
+        <div class="col-md-8">
+            <h4>left_col(global/page) -> content</h4>
+
+            {{ sonata_page_render_container('left_col', 'global') }}
+            {{ sonata_page_render_container('left_col', page) }}
+
+            {{ parent() }}
+            {#
+                        {% if page.name != 'global'%}
+                        {% endif %}
+            #}
+        </div>
+        <div class="col-md-4">
+            <h4>right_col(global/page)</h4>
+            {{ sonata_page_render_container('right_col', 'global') }}
+            {{ sonata_page_render_container('right_col', page) }}
+            {#
+                        {% if page.name != 'global'%}
+                        {% endif %}
+            #}
+        </div>
+        <div style="clear: both"></div>
+    {% endif %}
+
+
+{% endblock %}
 {#
 
 This file is part of the Sonata package.
@@ -7,7 +41,6 @@ This file is part of the Sonata package.
 For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code.
 
-#}
 {% extends 'SonataPageBundle::2columns_layout.html.twig' %}
 
 {% block sonata_page_body_tag %}
@@ -28,8 +61,9 @@ file that was distributed with this source code.
 
     {{ parent() }}
 
-    <h1>demo 2 columns | xxy layout</h1>
-
 {% endblock %}
 
 {% block sonata_page_breadcrumb %}{% endblock %}
+
+#}
+

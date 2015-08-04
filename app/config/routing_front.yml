@@ -50,3 +50,7 @@ fos_comment:
     resource: "@FOSCommentBundle/Resources/config/routing.yml"
     prefix: /comments
     defaults: { _format: html }
+
+nz_portfolio:
+    resource: "@NzPortfolioBundle/Resources/config/routing/work.xml"
+    prefix:   /work

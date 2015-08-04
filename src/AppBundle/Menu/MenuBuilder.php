@@ -14,7 +14,8 @@ class MenuBuilder extends ContainerAware
         $menu = $factory->createItem('root');
 
         /* $menu->addChild('Hello', array('route' => 'app_hello', 'routeParameters' => array('name' => 'tino'))); */
-        $menu->addChild('Blog', array('route' => 'sonata_news_archive'));
+        $menu->addChild('Blog', array('route' => 'sonata_news_home'));
+        $menu->addChild('Work', array('route' => 'nz_portfolio_home'));
 
         return $menu;
     }

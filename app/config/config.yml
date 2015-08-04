@@ -35,6 +35,7 @@ imports:
     - { resource: sonata/sonata_news.yml }
     - { resource: sonata/sonata_user.yml }
     - { resource: sonata/sonata_notification.yml }
+    - { resource: nz/portfolio.yml }
 
 
 framework:
@@ -95,7 +96,7 @@ doctrine:
 
         types:
             json:     Sonata\Doctrine\Types\JsonType
-            currency: Sonata\Component\Currency\CurrencyDoctrineType
+            #currency: Sonata\Component\Currency\CurrencyDoctrineType
 
     orm:
         auto_generate_proxy_classes: %kernel.debug%

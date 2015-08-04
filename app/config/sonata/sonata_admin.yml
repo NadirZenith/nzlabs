@@ -60,6 +60,13 @@ sonata_admin:
                     - sonata.media.admin.gallery
                     - sonata.comment.admin.thread
 
+            sonata.admin.group.portfolio:
+                label:           Portfolio
+                label_catalogue: NzPortfolioBundle
+                icon:            '<i class="fa fa-briefcase"></i>'
+                items:
+                    - nz.portfolio.admin.work
+                    
             sonata.admin.group.classification:
                 label:           sonata_classification
                 label_catalogue: SonataClassificationBundle

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+<!--        
+        <service id="sonata.news.block.recent_posts" class="Sonata\NewsBundle\Block\RecentPostsBlockService">
+            <tag name="sonata.block"/>
+
+            <argument>sonata.news.block.recent_posts</argument>
+            <argument type="service" id="templating" />
+            <argument type="service" id="sonata.news.manager.post" />
+        </service>
+
+        <service id="sonata.news.block.recent_comments" class="Sonata\NewsBundle\Block\RecentCommentsBlockService">
+            <tag name="sonata.block"/>
+
+            <argument>sonata.news.block.recent_comments</argument>
+            <argument type="service" id="templating" />
+            <argument type="service" id="sonata.news.manager.comment" />
+        </service>
+
+        -->
+        <service id="nz.portfolio.block.breadcrumb_archive" class="Nz\PortfolioBundle\Block\Breadcrumb\PortfolioArchiveBreadcrumbBlockService">
+            <tag name="sonata.block"/>
+            <tag name="sonata.breadcrumb"/>
+
+            <argument>work_archive</argument>
+            <argument>nz.portfolio.block.breadcrumb_archive</argument>
+            <argument type="service" id="templating" />
+            <argument type="service" id="knp_menu.menu_provider" />
+            <argument type="service" id="knp_menu.factory" />
+        </service>
+        
+        <service id="nz.portfolio.block.breadcrumb_work" class="Nz\PortfolioBundle\Block\Breadcrumb\PortfolioWorkBreadcrumbBlockService">
+            <tag name="sonata.block"/>
+            <tag name="sonata.breadcrumb"/>
+
+            <argument>work_post</argument>
+            <argument>nz.portfolio.block.breadcrumb_work</argument>
+            <argument type="service" id="templating" />
+            <argument type="service" id="knp_menu.menu_provider" />
+            <argument type="service" id="knp_menu.factory" />
+            <argument type="service" id="nz.portfolio.permalink.generator" />
+        </service>
+    </services>
+
+</container>

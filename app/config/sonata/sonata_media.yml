@@ -26,6 +26,16 @@ sonata_media:
             formats:
                 abstract: { width: 100, quality: 100}
                 wide:     { width: 820, quality: 100}
+                
+        portfolio:
+            providers:
+                - sonata.media.provider.image
+
+            formats:
+                archive: { width: 320, quality: 50}
+                #archive: { width: 320, height: 320, quality: 100}
+                item:     { width: 750, quality: 100}
+                #item:     { width: 750, height: 500, quality: 100}
 
         sonata_collection:
             providers:
@@ -43,14 +53,7 @@ sonata_media:
                 preview: { width: 100, quality: 100}
                 wide:    { width: 820, quality: 100}
 
-        sonata_product:
-            providers:
-                - sonata.media.provider.image
-
-            formats:
-                preview:   { width: 100, quality: 100}
-                small:     { width: 300, quality: 100}
-                large:     { width: 750, quality: 100}
+       
 
     cdn:
         # define the public base url for the uploaded media
@@ -70,6 +73,8 @@ sonata_media:
             resizer:    false
         image:
            thumbnail: sonata.media.thumbnail.format          # default value
+           #resizer: sonata.media.resizer.square
+           #resizer: sonata.media.resizer.simple 
 #           thumbnail: sonata.media.thumbnail.consumer.format # can be used to dispatch the resize action to async task
 #            thumbnail: sonata.media.thumbnail.liip_imagine    # use the LiipImagineBundle to resize the image
         vimeo:
@@ -86,7 +91,7 @@ sonata_media:
 #           thumbnail: sonata.media.thumbnail.liip_imagine    # use the LiipImagineBundle to resize the image
 
     pixlr:
-        enabled:  true
+        enabled:  false
         referrer: Demo - Sonata Project
 
     resizer:
