@@ -15,7 +15,7 @@ file that was distributed with this source code.
         <div class="content">
             {#{{ knp_menu_render('main') }}#}
             <div class="row page-header page-container-header">
-                <h4>header(global)</h4>
+                {#<h4>header(global)</h4>#}
                 {{ sonata_page_render_container('header', 'global') }}
             </div>
             {#
@@ -31,7 +31,7 @@ file that was distributed with this source code.
 
             {% if page is defined %}
                 <div class="row page-container-content_top">
-                    <h4>content_top(global / page)</h4>
+                    {#<h4>content_top(global / page)</h4>#}
                     
                     {{ sonata_page_render_container('content_top', 'global') }}
                     {{ sonata_page_render_container('content_top', page) }}
@@ -45,7 +45,7 @@ file that was distributed with this source code.
 
             <div class="row page-container-content">
                 {% block page_content %}
-                    <h4>content(page)</h4>
+                    {#<h4>content(page)</h4>#}
                     {% if content is defined %}
                         {{ content|raw }}
                     {% else %}
@@ -61,7 +61,7 @@ file that was distributed with this source code.
 
             {% if page is defined %}
                 <div class="row page-container-content_bottom">
-                    <h4>content_bottom(page/global)</h4>
+                    {#<h4>content_bottom(page/global)</h4>#}
                     
                     {{ sonata_page_render_container('content_bottom', page) }}
                     {{ sonata_page_render_container('content_bottom', 'global') }}
@@ -75,14 +75,16 @@ file that was distributed with this source code.
         </div>
 
         <footer class="row page-container-footer">
-            <h4>footer(global)</h4>
+            {#<h4>footer(global)</h4>#}
             {{ sonata_page_render_container('footer', 'global') }}
         </footer>
     </div>
+{#        
             <style>
                 h4{
                     border-top: 1px solid #ddd;
                     text-align: center;
                 }
             </style>
+#}
 {% endblock %}

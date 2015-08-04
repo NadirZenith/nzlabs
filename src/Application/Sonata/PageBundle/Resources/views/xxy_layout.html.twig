@@ -7,7 +7,7 @@
 
     {% if page is defined %}
         <div class="col-md-8">
-            <h4>left_col(global/page) -> content</h4>
+            {#<h4>left_col(global/page) -> content</h4>#}
 
             {{ sonata_page_render_container('left_col', 'global') }}
             {{ sonata_page_render_container('left_col', page) }}
@@ -19,7 +19,7 @@
             #}
         </div>
         <div class="col-md-4">
-            <h4>right_col(global/page)</h4>
+            {#<h4>right_col(global/page)</h4>#}
             {{ sonata_page_render_container('right_col', 'global') }}
             {{ sonata_page_render_container('right_col', page) }}
             {#
