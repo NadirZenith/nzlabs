@@ -40,7 +40,6 @@ sonata_admin:
         blocks:
 #            - { position: left, type: sonata.admin.block.admin_list }
 #            - { position: right, type: sonata.admin_doctrine_orm.block.audit}
-            - { position: left, type: app.block.service.test, settings: { content: "<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'>Welcome!</h3></div><div class='panel-body'>You can customize this dashboard by editing the <code>sonata_admin.yml</code> file. The current dashboard presents the recent items from the NewsBundle and a non-statistical e-commerce information.</div></div>"} }
             - { position: left, type: sonata.block.service.text, settings: { content: "<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'>Welcome!</h3></div><div class='panel-body'>You can customize this dashboard by editing the <code>sonata_admin.yml</code> file. The current dashboard presents the recent items from the NewsBundle and a non-statistical e-commerce information.</div></div>"} }
             # This block is disabled for now as the bundle generates an exception with composite key
 #            - { position: left, type: sonata.timeline.block.timeline, settings: { context: SONATA_ADMIN, max_per_page: 25 }}
@@ -102,7 +101,8 @@ sonata_admin:
             - assetic/sonata_admin_css.css
             - assetic/sonata_formatter_css.css
             - assetic/sonata_jqueryui_css.css
-            - assetic/app_admin_css.css
+            - bundles/sonataadmin/vendor/admin-lte/dist/css/skins/skin-black.min.css
+
             #- bundles/sonatademo/css/demo.css
 
 #            - bundles/sonataformatter/markitup/skins/sonata/style.css

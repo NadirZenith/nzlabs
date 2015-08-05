@@ -5,22 +5,18 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <!--
-    -->
     <services>
+        
         <service id="app.menu_builder" class="AppBundle\Menu\MenuBuilder">
             <argument type="service" id="knp_menu.factory" />
         </service>
+        
         <service id="app.main_menu" class="Knp\Menu\MenuItem">
             <factory service="app.menu_builder" method="createMainMenu" />
             <argument type="service" id="request_stack" />
             <tag name="knp_menu.menu" alias="main" />
         </service>
-<!--        
-        -->
-        <service id="sonata.block.manager" class="AppBundle\Block\BlockServiceManager">
-            <argument type="service" id="service_container" />
-            <argument>%kernel.debug%</argument>
-            <argument type="service" id="logger" />
-        </service>
+
     </services>
+    -->
 </container>

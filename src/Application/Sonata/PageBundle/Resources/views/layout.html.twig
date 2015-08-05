@@ -8,14 +8,15 @@ For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code.
 
 #}
-{% extends 'ApplicationSonataPageBundle::base_layout.html.twig' %}
+{% extends 'ApplicationSonataPageBundle::base.html.twig' %}
 
 {% block sonata_page_container %}
-    <div class="container">
-        <div class="content">
+    <div class="container-fluid">
+        <div class="content" style="margin-left: auto; margin-right: auto; width: 90%;">
             {#{{ knp_menu_render('main') }}#}
             <div class="row page-header page-container-header">
                 {#<h4>header(global)</h4>#}
+                {#{{dump(sonata_seo_context)}}#}
                 {{ sonata_page_render_container('header', 'global') }}
             </div>
             {#
@@ -45,14 +46,17 @@ file that was distributed with this source code.
 
             <div class="row page-container-content">
                 {% block page_content %}
-                    {#<h4>content(page)</h4>#}
                     {% if content is defined %}
+                        {#<h4>content defined</h4>#}
+                        
                         {{ content|raw }}
                     {% else %}
                         {% set content = block('content') %}
                         {% if content|length > 0 %}
+                            {#<h4>content = block content</h4>#}
                             {{ content|raw }}
                         {% elseif page is defined %}
+                            {#<h4>content = page</h4>#}
                             {{ sonata_page_render_container('content', page) }}
                         {% endif %}
                     {% endif %}
@@ -74,17 +78,9 @@ file that was distributed with this source code.
             {% endif %}
         </div>
 
-        <footer class="row page-container-footer">
+        <footer class="row page-container-footer well text-center">
             {#<h4>footer(global)</h4>#}
             {{ sonata_page_render_container('footer', 'global') }}
         </footer>
     </div>
-{#        
-            <style>
-                h4{
-                    border-top: 1px solid #ddd;
-                    text-align: center;
-                }
-            </style>
-#}
 {% endblock %}

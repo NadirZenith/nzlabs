@@ -55,11 +55,11 @@ sonata_page:
                  header:
                      name: Header
                  content_top:
-                     name: Top content
+                     name: Content Top
                  content:
                      name: Main content
                  content_bottom:
-                     name: Bottom content
+                     name: Content Bottom
                  footer:
                      name: Footer
             matrix:
@@ -84,13 +84,13 @@ sonata_page:
                  header:
                      name: Header
                  content_top:
-                     name: Top content
+                     name: Content Top
                  left_col:
                      name: Left content
                  right_col:
                      name: Right content
                  content_bottom:
-                     name: Bottom content
+                     name: Content Bottom
                  footer:
                      name: Footer
             matrix:

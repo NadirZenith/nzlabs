@@ -16,6 +16,7 @@ file that was distributed with this source code.
         <head {{ sonata_seo_head_attributes() }}>
 
             {#<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->#}
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
             {{ sonata_seo_title() }}
             {{ sonata_seo_metadatas() }}
 
@@ -63,7 +64,8 @@ file that was distributed with this source code.
         <body class="sonata-bc">
         {% endblock %}
 
-        {{ include('ApplicationSonataPageBundle:Admin:top_bar.html.twig') }}
+        {#{{ include('ApplicationSonataPageBundle:Admin:top_bar.html.twig') }}#}
+        {#{{ include('AppBundle:Admin:cms_top_bar.html.twig') }}#}
 
         {% block sonata_page_container %}
             

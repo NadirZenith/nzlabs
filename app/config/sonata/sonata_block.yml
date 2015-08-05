@@ -16,6 +16,8 @@ sonata_block:
         "AppBundle:MenuBuilder:createProfileMenu": "Profile Menu"
 
     blocks:
+        sonata.admin.block.stats:
+            contexts:   [admin]
         sonata.admin.block.admin_list:
             contexts:   [admin]
         sonata.admin.block.search_result:
@@ -24,8 +26,6 @@ sonata_block:
         #sonata.admin_doctrine_orm.block.audit:
         #    contexts:   [admin]
 
-        app.block.service.test:
-            #contexts:   [global]
         # Builtin Block
         sonata.block.service.text:
         sonata.block.service.container:
@@ -35,6 +35,7 @@ sonata_block:
 
         # PageBundle's Blocks
         sonata.page.block.container:
+            
             # cache: sonata.cache.memcached
             # cache: sonata.cache.predis
             # cache: sonata.page.cache.esi # if you are using the PageBundle
@@ -61,7 +62,7 @@ sonata_block:
         sonata.user.block.account:
             cache: sonata.page.cache.js_async
             #cache: sonata.page.cache.esi
-            contexts: [user]
+            #contexts: [user]
         sonata.user.block.menu:
             contexts: [user]
 
@@ -77,10 +78,13 @@ sonata_block:
         sonata.seo.block.twitter.hashtag_button:
         sonata.seo.block.twitter.mention_button:
         sonata.seo.block.twitter.embed:
+        sonata.seo.block.breadcrumb.homepage:
 
         sonata.demo.block.newsletter:
 
         # Formatter
         sonata.formatter.block.formatter:
+            
+        #app
+        #app.block.service.menu:
 
-        sonata.seo.block.breadcrumb.homepage:

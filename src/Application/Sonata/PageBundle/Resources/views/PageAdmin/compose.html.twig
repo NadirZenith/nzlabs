@@ -18,8 +18,9 @@ file that was distributed with this source code.
 {% block body_attributes %}class="sonata-bc skin-black fixed page-composer-page sonata-ba-no-side-menu"{% endblock %}
 
 {% block content %}
+
     <div class="page-composer">
-        <h2>{{ 'page.compose_page'|trans({}, 'SonataPageBundle') }} "{{ page.name }}" <small>[template: <b>{{ template.name }}</b>]</small></h2>
+        <h2>{{ 'page.compose_page'|trans({}, 'SonataPageBundle') }} "{{ page.name }}" <small>[{{ 'page.compose_template_label'|trans({}, 'SonataPageBundle') }}: <b>{{ template.name }}</b>]</small></h2>
 
         {% if containers|length == 0 %}
             {% include 'SonataPageBundle:PageAdmin:compose_hint.html.twig' %}
@@ -34,10 +35,10 @@ file that was distributed with this source code.
                                        data-block-id="{{ container.block.id }}"
                                        style="top:{{ container.area.placement.y }}%;right:{{ container.area.placement.right }}%;bottom:{{ container.area.placement.bottom }}%;left:{{ container.area.placement.x }}%"
                                        href="{{ admin.generateUrl('compose_container_show', { 'id': container.block.id }) }}"
-                                    >
+                                       >
                                         <div class="page-composer__page-preview__container__content">
                                             <strong>{{ container.block.name|default(container.area.name) }}</strong><br>
-                                            <small><span class="child-count">{{ container.block.children|length }}</span> blocks</small>
+                                            <small><span class="child-count">{{ container.block.children|length }}</span> {% transchoice container.block.children|length from 'SonataPageBundle' %}page.compose_blocks_label{% endtranschoice %}</small>
                                             <span class="page-composer__page-preview__add-block">
                                                 <i class="fa fa-circle-o"></i>
                                                 <i class="fa fa-dot-circle-o"></i>
@@ -50,7 +51,7 @@ file that was distributed with this source code.
                                 {% else %}
                                     <div class="page-composer__page-preview__container--no-block"
                                          style="top:{{ container.area.placement.y }}%;right:{{ container.area.placement.right }}%;bottom:{{ container.area.placement.bottom }}%;left:{{ container.area.placement.x }}%"
-                                    >
+                                         >
                                         <div class="page-composer__page-preview__container__content">
                                             <strong>{{ container.area.name }}</strong>
                                         </div>
@@ -62,15 +63,19 @@ file that was distributed with this source code.
 
                     {% if orphanContainers|length > 0 %}
                         <div class="page-composer__orphan-containers">
-                            <h3 class="page-composer__orphan-containers__header">{{ 'page.orphan_containers'|trans({}, 'SonataPageBundle') }}</h3>
+                            <h3 class="page-composer__orphan-containers__header">
+                                {{ 'page.orphan_containers'|trans({}, 'SonataPageBundle') }}
+                                <br>
+                                <small>these containers do not exist within this template</small>
+                            </h3>
                             <ul>
                                 {% for orphanContainer in orphanContainers %}
                                     <li class="page-composer__orphan-container block-preview-{{ orphanContainer.id }}"
                                         data-block-id="{{ orphanContainer.id }}"
                                         href="{{ admin.generateUrl('compose_container_show', { 'id': orphanContainer.id }) }}"
-                                    >
+                                        >
                                         <strong>{{ orphanContainer.name|default(orphanContainer.type) }}</strong><br>
-                                        <small><span class="child-count">{{ orphanContainer.children|length }}</span> blocks</small>
+                                        <small><span class="child-count">{{ orphanContainer.children|length }}</span> {% transchoice orphanContainer.children|length from 'SonataPageBundle' %}page.compose_blocks_label{% endtranschoice %}</small>
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -82,6 +87,8 @@ file that was distributed with this source code.
                     </div>
                 </div>
             </div>
+            {#                
+            #}
             <script>
                 $(document).ready(function () {
                     var composer = new PageComposer({{ page.id }}, {
@@ -94,8 +101,8 @@ file that was distributed with this source code.
                             block_preview:         "{{ admin_pool.getAdminByAdminCode('sonata.page.admin.block').generateUrl('composePreview', { 'block_id': 'BLOCK_ID' }) }}"
                         }
                     });
+                        
                     composer.csrfTokens = {{ csrfTokens|json_encode()|raw }};
-
                     window.SonataPageComposer = composer;
                 });
             </script>

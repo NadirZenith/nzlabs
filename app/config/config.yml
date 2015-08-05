@@ -9,6 +9,7 @@ imports:
 
     # Knp Paginator
     - { resource: knp/knp_paginator.yml }
+    - { resource: knp/knp_menu.yml }
 
     # FriendOfSymfony Bundles
     - { resource: fos/fos_comment.yml }

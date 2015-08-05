@@ -11,7 +11,11 @@ class MenuBuilder extends ContainerAware
 
     public function createMainMenu(FactoryInterface $factory, array $options)
     {
-        $menu = $factory->createItem('root');
+        $menu = $factory->createItem('root', [
+            'childrenAttributes' => [
+                'class' => 'nav nav-pills'
+            ]
+        ]);
 
         /* $menu->addChild('Hello', array('route' => 'app_hello', 'routeParameters' => array('name' => 'tino'))); */
         $menu->addChild('Blog', array('route' => 'sonata_news_home'));
@@ -24,11 +28,10 @@ class MenuBuilder extends ContainerAware
     {
         $menu = $factory->createItem('root');
 
-        /*$menu->addChild('Home', array('route' => 'homepage'));*/
+        /* $menu->addChild('Home', array('route' => 'homepage')); */
         $securityContext = $this->container->get('security.context');
         if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $menu->addChild('Admin', array('route' => 'sonata_admin_dashboard'));
-            
         }
 
         return $menu;
