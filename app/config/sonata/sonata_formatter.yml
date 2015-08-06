@@ -42,21 +42,37 @@ ivory_ck_editor:
     default_config: default
     configs:
         default:
-            filebrowserBrowseRoute: admin_sonata_media_media_ckeditor_browser
-            filebrowserImageBrowseRoute: admin_sonata_media_media_ckeditor_browser
-            # Display images by default when clicking the image dialog browse button
-            filebrowserImageBrowseRouteParameters:
-                provider: sonata.media.provider.image
-            filebrowserUploadRoute: admin_sonata_media_media_ckeditor_upload
-            filebrowserUploadRouteParameters:
-                provider: sonata.media.provider.file
-            # Upload file as image when sending a file from the image dialog
-            filebrowserImageUploadRoute: admin_sonata_media_media_ckeditor_upload
-            filebrowserImageUploadRouteParameters:
-                provider: sonata.media.provider.image
+                filebrowserBrowseRoute: admin_sonata_media_media_ckeditor_browser
+                filebrowserImageBrowseRoute: admin_sonata_media_media_ckeditor_browser
+                # Display images by default when clicking the image dialog browse button
+                filebrowserImageBrowseRouteParameters:
+                    provider: sonata.media.provider.image
+                filebrowserUploadRoute: admin_sonata_media_media_ckeditor_upload
+                filebrowserUploadRouteParameters:
+                    provider: sonata.media.provider.file
+                # Upload file as image when sending a file from the image dialog
+                filebrowserImageUploadRoute: admin_sonata_media_media_ckeditor_upload
+                filebrowserImageUploadRouteParameters:
+                    provider: sonata.media.provider.image
                 context: default # Optional, to upload in a custom context
 
         news:
+                #[ [ "Source", "-", "Save" ], "/", [ "Anchor" ], "/", [ "Maximize" ] ]
+            toolbar: ~
+                #[]
+                #[ 'Source','-','Save','NewPage','DocProps','Preview','Print','-','Templates' ] 
+                #[ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] ,
+                #[ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ] ,
+                #[ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] ,
+                #'/',
+                #[ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] ,
+                #[ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl' ] ,
+                #[ 'Link','Unlink','Anchor' ] ,
+                #[ 'Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','Iframe' ] ,
+                #'/',
+                #[ 'Styles','Format','Font','FontSize' ],
+                #[ 'TextColor','BGColor' ] ,
+                #[ 'Maximize', 'ShowBlocks','-','About' ] 
             filebrowserBrowseRoute: admin_sonata_media_media_ckeditor_browser
             filebrowserImageBrowseRoute: admin_sonata_media_media_ckeditor_browser
             # Display images by default when clicking the image dialog browse button
@@ -84,4 +100,4 @@ ivory_ck_editor:
             filebrowserImageUploadRoute: admin_sonata_media_media_ckeditor_upload
             filebrowserImageUploadRouteParameters:
                 provider: sonata.media.provider.image
-                context: news # Optional, to upload in a custom context
+                context: portfolio # Optional, to upload in a custom context
