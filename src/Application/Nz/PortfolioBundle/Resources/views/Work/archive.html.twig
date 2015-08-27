@@ -1,0 +1,80 @@
+{#
+
+/*
+ * This file is part of the NzPortfolioBundle.
+ *
+ * (c) Nadir Zenith <2cb.md2@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+<h1>first</h1>
+{% sonata_template_box 'This yes is the archive template. Feel free to override it.' %}
+
+#}
+{#
+#}
+{% block sonata_page_breadcrumb %}
+    <div class="row-fluid clearfix">
+        {{ sonata_block_render_event('breadcrumb', { 'context': 'work_archive', 'collection': collection, 'tag': tag, 'current_uri': app.request.requestUri }) }}
+    </div>
+{% endblock %}
+
+<h1>{{ 'title_archive'|trans({}, 'NzPortfolioBundle') }}</h1>
+
+
+<div class="sonata-blog-work-list">
+    {% for work in pager.getResults() %}
+        <div class="sonata-blog-work-container">
+            <header>
+                <h2 class="sonata-blog-work-title">
+                    {#<a href="{{ url('nz_portfolio_view', { 'permalink': nz_portfolio_permalink(work) }) }}"> #}
+                    <a href="{{ url('nz_portfolio_view', { 'permalink': nz_portfolio_permalink(work) }) }}"> 
+                        {{ work.title }}
+                    </a>
+                </h2>
+
+                <div class="sonata-blog-work-information">
+{#                    
+                    <span class="sonata-blog-work-author">
+                        {{ 'archive_author'|trans({'%author%': work.author }, 'NzPortfolioBundle') }}
+                    </span> |
+#}
+
+                    <i class="icon-calendar"></i>
+                    {{ work.publicationDateStart | format_date }}
+
+                    {#<i class="icon-comment"></i>#}
+                    {#<span class="sonata-blog-work-comments-count">{{ 'comments_count'|trans({'%comments_count%': work.commentsCount }, 'NzPortfolioBundle') }}</span>#}
+
+                    <div class="sonata-blog-work-tags">
+                        {% if work.tags|length > 1 %}
+                            <i class="icon-tags"></i>
+                        {% else %}
+                            <i class="icon-tag"></i>
+                        {% endif %}
+                        {{ 'published_under'|transchoice(work.tags|length, {}, 'NzPortfolioBundle') }}
+
+                        {% for tag in work.tags %}
+                            {#<a href="{{ url('nz_portfolio_tag', { 'tag': tag.slug } ) }}">{{ tag.name }}</a>{% if not loop.last %},{% endif %}#}
+                        {% endfor %}
+                    </div>
+                </div>
+            </header>
+
+            <div class="sonata-blog-work-abtract">
+                {{ work.abstract }}
+            </div>
+        </div>
+
+        <hr />
+    {% else %}
+        {{ 'no_work_found'|trans({}, 'NzPortfolioBundle') }}
+    {% endfor %}
+
+    <ul class="pager">
+        <li{% if pager.page == pager.lastPage %} class="disabled"{% endif %}><a href="{{ url(route, route_parameters|merge({'page': pager.nextpage})) }}" title="{{ 'link_previous_page'|trans({}, 'NzPortfolioBundle') }}">{{ 'link_previous_page'|trans({}, 'NzPortfolioBundle') }}</a>
+        <li{% if pager.page == pager.firstPage %} class="disabled"{% endif %}><a href="{{ url(route, route_parameters|merge({'page': pager.previouspage})) }}" title="{{ 'link_next_page'|trans({}, 'NzPortfolioBundle') }}">{{ 'link_next_page'|trans({}, 'NzPortfolioBundle') }}</a></li>
+    </ul>
+</div>
