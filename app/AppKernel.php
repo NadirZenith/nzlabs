@@ -108,7 +108,8 @@ class AppKernel extends Kernel
 
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
             new AppBundle\AppBundle(),
-            new Nz\PortfolioBundle\NzPortfolioBundle(),
+	    new Nz\PortfolioBundle\NzPortfolioBundle(),
+	    new Application\Nz\PortfolioBundle\ApplicationNzPortfolioBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

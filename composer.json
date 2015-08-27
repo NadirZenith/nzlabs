@@ -78,8 +78,26 @@
         "stof/doctrine-extensions-bundle": "~1.1",
         "stephpy/timeline-bundle": "~2.0@dev",
 
+        "nz/portfolio-bundle": "dev-master",
         "incenteev/composer-parameter-handler": "~2.0"
     },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "nz/portfolio-bundle",
+                "version": "dev-master",
+                "dist": {
+                    "url": "https://github.com/NadirZenith/PortfolioBundle/archive/master.zip",
+                    "type": "zip"
+                },
+                "autoload": {
+                    "psr-4": { "Nz\\PortfolioBundle\\": "" }
+                }
+            }
+        }
+    ],
+
 
     "require-dev": {
         "phpunit/phpunit": "~4.2",

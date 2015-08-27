@@ -2,40 +2,14 @@
 # more information can be found here http://sonata-project.org/bundles/news
 #
 nz_portfolio:
-    #title:        %sonata_news.blog_title%
-    #link:         %sonata_news.blog_link%
-    #description:  %sonata_news.blog_description%
-    #salt:         %sonata_news.salt%
-
-    # permalink_generator: sonata.news.permalink.category # /party/new-year
-
-    # comment options
-    #comment:
-    #    notification:
-    #        emails:   %sonata_news.comment.emails%
-    #        from:     %sonata_news.comment.email_from%
-    #        template: 'SonataNewsBundle:Mail:comment_notification.txt.twig'
     permalink_generator: nz.portfolio.permalink.slug 
     
     class:
+        work:           Application\Nz\PortfolioBundle\Entity\Work    
         tag:            Application\Sonata\ClassificationBundle\Entity\Tag
         collection:     Application\Sonata\ClassificationBundle\Entity\Collection
-        work:           Nz\PortfolioBundle\Entity\Work
-        #post:          Application\Sonata\NewsBundle\Entity\Post
-        #comment:       Application\Sonata\NewsBundle\Entity\Comment
         media:          Application\Sonata\MediaBundle\Entity\Media
-        user:           Application\Sonata\UserBundle\Entity\User
-
-    admin:
-        work:
-            class:       Nz\PortfolioBundle\Admin\PostAdmin
-            #class:      Sonata\NewsBundle\Admin\PostAdmin
-            controller:  SonataAdminBundle:CRUD
-            translation: NzPortfolioBundle
-        #comment:
-        #    class:       Sonata\NewsBundle\Admin\CommentAdmin
-        #    controller:  SonataAdminBundle:CRUD
-        #    translation: SonataNewsBundle
+        gallery:        Application\Sonata\MediaBundle\Entity\Gallery
         
 # Enable Doctrine to map the provided entities
 doctrine:
@@ -43,8 +17,8 @@ doctrine:
         entity_managers:
             default:
                 mappings:
-                    #NzPortfolioBundle: ~
-                    #ApplicationSonataNewsBundle: ~
+                        NzPortfolioBundle: ~
+                #ApplicationSonataNewsBundle: ~
                     #AppBundle:
                     #    type: xml
                     #    dir: SomeResources/config/doctrine

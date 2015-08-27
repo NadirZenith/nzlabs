@@ -51,6 +51,8 @@ fos_comment:
     prefix: /comments
     defaults: { _format: html }
 
-nz_portfolio:
-    resource: "@NzPortfolioBundle/Resources/config/routing/work.xml"
-    prefix:   /work
+
+portfolio:
+    resource: '@NzPortfolioBundle/Resources/config/routing/portfolio.xml'
+    prefix: /portfolio
+

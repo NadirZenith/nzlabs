@@ -13,3 +13,8 @@ _profiler:
     resource: "@WebProfilerBundle/Resources/config/routing/profiler.xml"
     prefix:   /_profiler
 
+    
+tests:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+    prefix:   /tests
