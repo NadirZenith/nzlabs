@@ -62,15 +62,13 @@
 
     <div class="nz-portfolio-work-gallery" style="margin-top: 15px;margin-bottom: 15px;">
         <div class="row">
-	
             {% if work.gallery %}
-            {% for galMedia in work.gallery.galleryHasMedias %}
-                <div class="col-md-3">
-                    {% thumbnail galMedia.media, 'wide' with {'class' : 'img-responsive'} %}
-                </div>
-            {% endfor %}
+            	{% for galMedia in work.gallery.galleryHasMedias %}
+                	<div class="col-md-3">
+                    		{% thumbnail galMedia.media, 'wide' with {'class' : 'img-responsive'} %}
+                	</div>
+            	{% endfor %}
             {% endif %}
-	    
         </div>
     </div>
 
