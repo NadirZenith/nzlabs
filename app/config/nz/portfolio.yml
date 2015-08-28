@@ -13,20 +13,37 @@ nz_portfolio:
         
 ivory_ck_editor:
     configs:
+#        portfolio:
+#            filebrowserBrowseRoute: admin_app_media_media_ckeditor_browser
+#            filebrowserImageBrowseRoute: admin_app_media_media_ckeditor_browser
+            # Display images by default when clicking the image dialog browse button
+ #           filebrowserImageBrowseRouteParameters:
+  #              provider: sonata.media.provider.image
+  #              hide_context: true
+  #              context: portfolio
+  #          filebrowserUploadRoute: admin_app_media_media_ckeditor_upload
+  #          filebrowserUploadRouteParameters:
+  #              provider: sonata.media.provider.file
+  #              context: portfolio
+            # Upload file as image when sending a file from the image dialog
+   #         filebrowserImageUploadRoute: admin_app_media_media_ckeditor_upload
+   #         filebrowserImageUploadRouteParameters:
+   #             provider: sonata.media.provider.image
+   #             context: portfolio # Optional, to upload in a custom context
+
+
+
         portfolio:
-            filebrowserBrowseRoute: admin_app_media_media_ckeditor_browser
-            filebrowserImageBrowseRoute: admin_app_media_media_ckeditor_browser
+            filebrowserBrowseRoute: admin_sonata_media_media_ckeditor_browser
+            filebrowserImageBrowseRoute: admin_sonata_media_media_ckeditor_browser
             # Display images by default when clicking the image dialog browse button
             filebrowserImageBrowseRouteParameters:
                 provider: sonata.media.provider.image
-                hide_context: true
-                context: portfolio
-            filebrowserUploadRoute: admin_app_media_media_ckeditor_upload
+            filebrowserUploadRoute: admin_sonata_media_media_ckeditor_upload
             filebrowserUploadRouteParameters:
                 provider: sonata.media.provider.file
-                context: portfolio
             # Upload file as image when sending a file from the image dialog
-            filebrowserImageUploadRoute: admin_app_media_media_ckeditor_upload
+            filebrowserImageUploadRoute: admin_sonata_media_media_ckeditor_upload
             filebrowserImageUploadRouteParameters:
                 provider: sonata.media.provider.image
                 context: portfolio # Optional, to upload in a custom context
