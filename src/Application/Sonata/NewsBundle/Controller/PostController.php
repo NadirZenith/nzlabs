@@ -48,19 +48,19 @@ class PostController extends Controller
     public function searchPrettyAction(Request $request, array $criteria = array(), array $parameters = array())
     {
         $page = $this->getRequest()->get('page', 1);
-        
+
         $pager = $this->getPostManager()->getPager(
             $criteria, $page
         );
 
         $query2 = $pager->getQuery();
-        
+
         $query_string = str_replace(['_', '-'], ' ', $request->get('query_string'));
         $search_array = explode(' ', $query_string);
-        
+
         $repository = $this->getPostManager()->getObjectManager()->getRepository('ApplicationSonataNewsBundle:Post');
 
-        $first = ($page ==1)? 0 : $page * 2;
+        $first = ($page == 1) ? 0 : $page * 2;
         $qb = $repository->createQueryBuilder('p')
             ->setFirstResult($first)
             ->setMaxResults(2);
@@ -86,7 +86,7 @@ class PostController extends Controller
             }
         }
         $query = $qb->getQuery();
-        
+
         /*
           $query = $this->getPostManager()->getObjectManager()
           ->createQuery("SELECT p FROM ApplicationSonataNewsBundle:Post p WHERE p.rawContent LIKE :query_string OR p.title LIKE :query_string")
@@ -126,6 +126,10 @@ class PostController extends Controller
             $criteria, $this->getRequest()->get('page', 1)
         );
 
+        if (!$pager->valid()) {
+            throw new NotFoundHttpException('No posts found');
+        }
+        
         $parameters = array_merge(array(
             'pager' => $pager,
             'blog' => $this->get('sonata.news.blog'),
@@ -240,9 +244,9 @@ class PostController extends Controller
         if (!$post || !$post->isPublic()) {
             throw new NotFoundHttpException('Unable to find the post');
         }
-        
+
         if ($seoPage = $this->getSeoPage()) {
-            /*d($seoPage);*/
+            /* d($seoPage); */
             $seoPage
                 ->addTitle($post->getTitle())
                 ->addMeta('name', 'description', $post->getAbstract())
@@ -359,7 +363,7 @@ class PostController extends Controller
             $comment = $form->getData();
 
             $this->getCommentManager()->save($comment);
-            /*$this->get('sonata.news.mailer')->sendCommentNotification($comment);*/
+            /* $this->get('sonata.news.mailer')->sendCommentNotification($comment); */
 
             // todo : add notice
             return new RedirectResponse($this->generateUrl('sonata_news_view', array(
