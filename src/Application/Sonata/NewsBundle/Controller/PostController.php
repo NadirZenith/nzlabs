@@ -122,14 +122,15 @@ class PostController extends Controller
      */
     public function renderArchive(array $criteria = array(), array $parameters = array())
     {
+        $page = $this->getRequest()->get('page', 1);
         $pager = $this->getPostManager()->getPager(
-            $criteria, $this->getRequest()->get('page', 1)
+            $criteria, $page
         );
 
-        if (!$pager->valid()) {
+        if ($page > $pager->getLastPage()) {
             throw new NotFoundHttpException('No posts found');
         }
-        
+
         $parameters = array_merge(array(
             'pager' => $pager,
             'blog' => $this->get('sonata.news.blog'),
